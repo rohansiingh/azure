@@ -1,0 +1,86 @@
+{
+	"name": "Notebook 2",
+	"properties": {
+		"nbformat": 4,
+		"nbformat_minor": 2,
+		"bigDataPool": {
+			"referenceName": "mypocsparkpool",
+			"type": "BigDataPoolReference"
+		},
+		"sessionProperties": {
+			"driverMemory": "28g",
+			"driverCores": 4,
+			"executorMemory": "28g",
+			"executorCores": 4,
+			"numExecutors": 2,
+			"conf": {
+				"spark.dynamicAllocation.enabled": "false",
+				"spark.dynamicAllocation.minExecutors": "2",
+				"spark.dynamicAllocation.maxExecutors": "2"
+			}
+		},
+		"metadata": {
+			"saveOutput": true,
+			"language_info": {
+				"name": "python"
+			},
+			"a365ComputeOptions": {
+				"id": "/subscriptions/74223a54-1a7a-48ff-921f-868cc7704a55/resourceGroups/pocwebapprg/providers/Microsoft.Synapse/workspaces/mypocworkspace/bigDataPools/mypocsparkpool",
+				"name": "mypocsparkpool",
+				"type": "Spark",
+				"endpoint": "https://mypocworkspace.dev.azuresynapse.net/livyApi/versions/2019-11-01-preview/sparkPools/mypocsparkpool",
+				"auth": {
+					"type": "AAD",
+					"authResource": "https://dev.azuresynapse.net"
+				},
+				"sparkVersion": "2.4",
+				"nodeCount": 3,
+				"cores": 4,
+				"memory": 28
+			}
+		},
+		"cells": [
+			{
+				"cell_type": "code",
+				"metadata": {
+					"diagram": {
+						"activateDiagramType": 1,
+						"chartConfig": {
+							"category": "bar",
+							"keys": [
+								"_rid"
+							],
+							"values": [
+								"_ts"
+							],
+							"yLabel": "_ts",
+							"xLabel": "_rid",
+							"aggregation": "SUM",
+							"aggByBackend": false
+						},
+						"aggData": "{\"_ts\":{\"4AxfAPvvKpuEBQAAAAAAAA==\":1613368593,\"4AxfAPvvKpuFBQAAAAAAAA==\":1613368593,\"4AxfAPvvKpuGBQAAAAAAAA==\":1613368593,\"4AxfAPvvKpuHBQAAAAAAAA==\":1613368593,\"4AxfAPvvKpuIBQAAAAAAAA==\":1613368593,\"4AxfAPvvKpuJBQAAAAAAAA==\":1613368593,\"4AxfAPvvKpuKBQAAAAAAAA==\":1613368593,\"4AxfAPvvKpuLBQAAAAAAAA==\":1613368593,\"4AxfAPvvKpuMBQAAAAAAAA==\":1613368593,\"4AxfAPvvKpuNBQAAAAAAAA==\":1613368593}}",
+						"isSummary": false,
+						"previewData": {
+							"filter": null
+						},
+						"isSql": false
+					}
+				},
+				"source": [
+					"# Read from Cosmos DB analytical store into a Spark DataFrame and display 10 rows from the DataFrame\n",
+					"# To select a preferred list of regions in a multi-region Cosmos DB account, add .option(\"spark.cosmos.preferredRegions\", \"<Region1>,<Region2>\")\n",
+					"\n",
+					"df = spark.read\\\n",
+					"    .format(\"cosmos.olap\")\\\n",
+					"    .option(\"spark.synapse.linkedService\", \"CosmosDbLS\")\\\n",
+					"    .option(\"spark.cosmos.container\", \"movie_data\")\\\n",
+					"    .load()\n",
+					"\n",
+					"display(df.limit(10))"
+				],
+				"attachments": null,
+				"execution_count": 1
+			}
+		]
+	}
+}

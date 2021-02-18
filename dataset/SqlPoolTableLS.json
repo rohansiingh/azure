@@ -1,0 +1,46 @@
+{
+	"name": "SqlPoolTableLS",
+	"properties": {
+		"annotations": [],
+		"type": "SqlPoolTable",
+		"schema": [
+			{
+				"name": "movie",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "title",
+				"type": "varchar"
+			},
+			{
+				"name": "genres",
+				"type": "varchar"
+			},
+			{
+				"name": "year",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "Rating",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "Rotton_Tomato",
+				"type": "int",
+				"precision": 10
+			}
+		],
+		"typeProperties": {
+			"schema": "dbo",
+			"table": "movie_data"
+		},
+		"sqlPool": {
+			"referenceName": "mydedicatedsql",
+			"type": "SqlPoolReference"
+		}
+	},
+	"type": "Microsoft.Synapse/workspaces/datasets"
+}

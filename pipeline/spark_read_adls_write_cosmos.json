@@ -1,0 +1,29 @@
+{
+	"name": "spark_read_adls_write_cosmos",
+	"properties": {
+		"activities": [
+			{
+				"name": "Notebook1",
+				"type": "SynapseNotebook",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"notebook": {
+						"referenceName": "spark_read_adls2_write_cosmos",
+						"type": "NotebookReference"
+					}
+				}
+			}
+		],
+		"annotations": [],
+		"lastPublishTime": "2021-02-17T10:01:45Z"
+	},
+	"type": "Microsoft.Synapse/workspaces/pipelines"
+}

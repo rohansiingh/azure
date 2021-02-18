@@ -1,0 +1,16 @@
+{
+	"name": "SQL script 2",
+	"properties": {
+		"content": {
+			"query": "SELECT TOP 100 * \nFROM OPENROWSET('CosmosDB',\n                'Account=poccosmosaccount;Database=mydatabase;Key=kMAXDvJf2xN931BCydB7dhBvXi46Ah6LtiL77OQoCPOBwqRU5nXyubtqbRpqVzpm51Ki7yhTnr2cyTwJ8qq8LQ==',\n                movie_data) AS movie_data",
+			"metadata": {
+				"language": "sql"
+			},
+			"currentConnection": {
+				"poolName": "Built-in",
+				"databaseName": "master"
+			}
+		},
+		"type": "SqlQuery"
+	}
+}

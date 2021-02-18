@@ -1,0 +1,16 @@
+{
+	"name": "CosmosDbSqlApiCollection2",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "CosmosDbLS2",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "CosmosDbSqlApiCollection",
+		"schema": {},
+		"typeProperties": {
+			"collectionName": "moview_data"
+		}
+	},
+	"type": "Microsoft.Synapse/workspaces/datasets"
+}

@@ -1,0 +1,16 @@
+{
+	"name": "create_table_in_dediactedpool",
+	"properties": {
+		"content": {
+			"query": "CREATE TABLE [dbo].[movie_data]\n(\n    movie\tint,\n    title\tvarchar(250),\n    genres\tvarchar(250),\n    year\tint,\n    Rating\tint,\n    Rotton_Tomato int\n\n)\nWITH\n(\n    DISTRIBUTION = HASH (year),\n    CLUSTERED COLUMNSTORE INDEX\n)\nGO\n",
+			"metadata": {
+				"language": "sql"
+			},
+			"currentConnection": {
+				"poolName": "mydedicatedsql",
+				"databaseName": "mydedicatedsql"
+			}
+		},
+		"type": "SqlQuery"
+	}
+}

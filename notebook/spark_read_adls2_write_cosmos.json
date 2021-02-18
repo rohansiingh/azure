@@ -1,0 +1,90 @@
+{
+	"name": "spark_read_adls2_write_cosmos",
+	"properties": {
+		"nbformat": 4,
+		"nbformat_minor": 2,
+		"bigDataPool": {
+			"referenceName": "mypocsparkpool",
+			"type": "BigDataPoolReference"
+		},
+		"sessionProperties": {
+			"driverMemory": "28g",
+			"driverCores": 4,
+			"executorMemory": "28g",
+			"executorCores": 4,
+			"numExecutors": 2,
+			"conf": {
+				"spark.dynamicAllocation.enabled": "false",
+				"spark.dynamicAllocation.minExecutors": "2",
+				"spark.dynamicAllocation.maxExecutors": "2"
+			}
+		},
+		"metadata": {
+			"saveOutput": true,
+			"language_info": {
+				"name": "python"
+			},
+			"a365ComputeOptions": {
+				"id": "/subscriptions/74223a54-1a7a-48ff-921f-868cc7704a55/resourceGroups/pocwebapprg/providers/Microsoft.Synapse/workspaces/mypocworkspace/bigDataPools/mypocsparkpool",
+				"name": "mypocsparkpool",
+				"type": "Spark",
+				"endpoint": "https://mypocworkspace.dev.azuresynapse.net/livyApi/versions/2019-11-01-preview/sparkPools/mypocsparkpool",
+				"auth": {
+					"type": "AAD",
+					"authResource": "https://dev.azuresynapse.net"
+				},
+				"sparkVersion": "2.4",
+				"nodeCount": 3,
+				"cores": 4,
+				"memory": 28
+			}
+		},
+		"cells": [
+			{
+				"cell_type": "code",
+				"metadata": {
+					"diagram": {
+						"activateDiagramType": 1,
+						"chartConfig": {
+							"category": "bar",
+							"keys": [
+								"_c0"
+							],
+							"values": [
+								"_c0"
+							],
+							"yLabel": "_c0",
+							"xLabel": "_c0",
+							"aggregation": "COUNT",
+							"aggByBackend": false
+						},
+						"aggData": "{\"_c0\":{\"3309\":1,\"6987\":1,\"7065\":1,\"7243\":1,\"8511\":1,\"32898\":1,\"62383\":1,\"72626\":1,\"108583\":1,\"movie\":1}}",
+						"isSummary": false,
+						"previewData": {
+							"filter": null
+						},
+						"isSql": false
+					}
+				},
+				"source": [
+					"%%pyspark\n",
+					"df = spark.read.load('abfss://mypoccontainer@poc1mystroageacc.dfs.core.windows.net/MoviesDB.csv', format='csv'\n",
+					"## If header exists uncomment line below\n",
+					", header=True\n",
+					")\n",
+					"\n",
+					"\n",
+					"df.write\\\n",
+					".format(\"cosmos.oltp\")\\\n",
+					".option(\"spark.synapse.linkedService\", \"CosmosDbLS\")\\\n",
+					".option(\"spark.cosmos.container\", \"moview_data\")\\\n",
+					".option(\"spark.cosmos.write.upsertEnabled\", \"true\")\\\n",
+					".mode('append')\\\n",
+					".save()"
+				],
+				"attachments": null,
+				"execution_count": 1
+			}
+		]
+	}
+}

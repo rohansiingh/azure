@@ -1,0 +1,16 @@
+{
+	"name": "CosmosDbSqlApiCollection1",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "CosmosDbLS",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "CosmosDbSqlApiCollection",
+		"schema": {},
+		"typeProperties": {
+			"collectionName": "movie_data"
+		}
+	},
+	"type": "Microsoft.Synapse/workspaces/datasets"
+}

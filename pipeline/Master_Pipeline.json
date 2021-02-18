@@ -1,0 +1,96 @@
+{
+	"name": "Master_Pipeline",
+	"properties": {
+		"activities": [
+			{
+				"name": "AzSql_Adls2_csv",
+				"type": "ExecutePipeline",
+				"dependsOn": [],
+				"userProperties": [],
+				"typeProperties": {
+					"pipeline": {
+						"referenceName": "AzSql_Adls2_csv",
+						"type": "PipelineReference"
+					},
+					"waitOnCompletion": true
+				}
+			},
+			{
+				"name": "AzSql_Adls2_csv1",
+				"type": "ExecutePipeline",
+				"dependsOn": [],
+				"userProperties": [],
+				"typeProperties": {
+					"pipeline": {
+						"referenceName": "AzSql_Adls2_csv",
+						"type": "PipelineReference"
+					},
+					"waitOnCompletion": true
+				}
+			},
+			{
+				"name": "spark_read_adls_write_cosmos",
+				"type": "ExecutePipeline",
+				"dependsOn": [
+					{
+						"activity": "AzSql_Adls2_csv1",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"pipeline": {
+						"referenceName": "spark_read_adls_write_cosmos",
+						"type": "PipelineReference"
+					},
+					"waitOnCompletion": true
+				}
+			},
+			{
+				"name": "cosmos_to_synPool",
+				"type": "ExecutePipeline",
+				"dependsOn": [
+					{
+						"activity": "spark_read_adls_write_cosmos",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"pipeline": {
+						"referenceName": "cosmos_to_synPool",
+						"type": "PipelineReference"
+					},
+					"waitOnCompletion": true
+				}
+			},
+			{
+				"name": "synPool_to_adls2_json",
+				"type": "ExecutePipeline",
+				"dependsOn": [
+					{
+						"activity": "cosmos_to_synPool",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"pipeline": {
+						"referenceName": "synPool_to_adls2_json",
+						"type": "PipelineReference"
+					},
+					"waitOnCompletion": true
+				}
+			}
+		],
+		"annotations": [],
+		"lastPublishTime": "2021-02-18T06:13:28Z"
+	},
+	"type": "Microsoft.Synapse/workspaces/pipelines"
+}
